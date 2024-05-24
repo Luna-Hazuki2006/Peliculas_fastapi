@@ -130,15 +130,15 @@ async def eliminar_pelicula(id : str):
 
 @app.get('/peliculas/menor', status_code=status.HTTP_302_FOUND)
 async def buscar_menor(): 
-    return sorted(peliculas, key=lambda x: x.calificacion)[0]
+    return sorted(list(filter(lambda x: x.tipo == Tipo.pelicula, peliculas)), key=lambda x: x.calificacion)[0]
 
 @app.get('/peliculas/mayor', status_code=status.HTTP_302_FOUND)
 async def buscar_mayor(): 
-    return sorted(peliculas, key=lambda x: x.calificacion)[-1]
+    return sorted(list(filter(lambda x: x.tipo == Tipo.pelicula, peliculas)), key=lambda x: x.calificacion)[-1]
 
 @app.get('/peliculas/promedio_series', status_code=status.HTTP_302_FOUND)
 async def buscar_promedio_series(): 
-    pass
+    return sum(list(map(lambda x: x.duracion, list(filter(lambda x: x.tipo == Tipo.serie, peliculas))))) / len(list(filter(lambda x: x.tipo == Tipo.serie, peliculas)))
 
 @app.get('/peliculas/estrenos', status_code=status.HTTP_302_FOUND)
 async def buscar_estrenos_mes():
