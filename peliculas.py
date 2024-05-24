@@ -142,4 +142,4 @@ async def buscar_promedio_series():
 
 @app.get('/peliculas/estrenos', status_code=status.HTTP_302_FOUND)
 async def buscar_estrenos_mes():
-    return filter(lambda x: x.estreno.month == datetime.now().month and x.estreno.year == datetime.now().year, peliculas)
+    return list(filter(lambda x: x.estreno.month == datetime.now().month and x.estreno.year == datetime.now().year, peliculas))
